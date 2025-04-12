@@ -1,100 +1,67 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Subway Surfers: Barcelona</title>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Subway Surfers: Barcelona | yell0wsuit</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <script src="subwaySurf14.08.js"></script>
+        <button id="save" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+">Save 100%</button>
+        <script>
+            window.config = {
+                loader: "unity",
+                debug: false,
+                maxRatio: 16 / 9,
+                minRatio: 9 / 16,
 
-    <script src="subwaySurf14.08.js"></script>
-    <script>
-        window.config = {
-            loader: 'unity',
-            debug: false,
-            maxRatio: 16 / 9,
-            minRatio: 9 / 16,
+                title: "Subway Surfers: Barcelona",
 
-            title: 'Subway Surfers: Barcelona',
+                unityVersion: "2019.2.0f1",
+                unityWebglBuildUrl: "Build\/Barcelona\/subwaySurf14.08.json",
+                //unityWebglLoaderUrl: 'UnityLoader.2019.1.js',
 
-            unityVersion: '2019.2.0f1',
-            unityWebglBuildUrl: 'Build\/Barcelona\/subwaySurf14.08.json',
-            //unityWebglLoaderUrl: 'UnityLoader.2019.1.js',
+                fileSize: 26,
+                cachedDecompressedFileSizes: {
+                    "subwaySurf14.08.wasm.framework.unityweb": 537217,
+                    "subwaySurf14.08.wasm.code.unityweb": 26475054,
+                    "subwaySurf14.08.data.unityweb": 26686614,
+                },
+            };
+        </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX3SJWCLEY"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
 
-            fileSize: 26,
-            cachedDecompressedFileSizes: {
-                'subwaySurf14.08.wasm.framework.unityweb':537217,
-                'subwaySurf14.08.wasm.code.unityweb':26475054,
-                'subwaySurf14.08.data.unityweb':26686614,
-            },
-        };
-    </script>
+            gtag("config", "G-SX3SJWCLEY");
+        </script>
+        <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3324915803425189"
+            crossorigin="anonymous"></script>
+    </head>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX3SJWCLEY"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-SX3SJWCLEY');
-    </script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3324915803425189" crossorigin="anonymous"></script>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            text-align: center;
-            background-color: #2c2c2c;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #444;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .button {
-            background-color: #4caf50;
-            color: white;
-            padding: 15px 30px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 20px;
-        }
-
-        .button:hover {
-            background-color: #43a047;
-            transform: scale(1.05);
-        }
-
-        footer {
-            font-size: 12px;
-            color: #aaaaaa;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Subway Surfers: Barcelona</h1>
-        <p>Prepare-se para jogar e salvar seu progresso!</p>
-
-        <!-- Botão Save 100% -->
-        <button class="button" id="saveButton">Save 100%</button>   
-    </div>
-
-    <script src="../Subway Surf Tools/popup.js">
-    </script>
+    <body>
+        <script src="../Subway Surf Tools/popup.js"></script>
+        <script src="master-loader.js"></script>
+        <script src="register-sw.js"></script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92efcdbc2852af8f',t:'MTc0NDQzMDI4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"92efcdbc2852af8f","version":"2025.3.0","r":1,"token":"1646abcce58241b1aef359d9d36b339d","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subway Surfers Tools</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 350px;
+            background-color: #2c2c2c;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .icon {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #ffffff;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .button:hover {
+            transform: scale(1.03);
+        }
+
+        #backup {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        #backup:hover {
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+        }
+
+        #restore {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+        }
+
+        #restore:hover {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+        }
+
+        #save {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+
+        #save:hover {
+            background: linear-gradient(135deg, #fb8c00, #e65100);
+        }
+
+        #clean-data {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        #clean-data:hover {
+            background: linear-gradient(135deg, #e53935, #c2185b);
+        }
+
+        footer {
+            font-size: 12px;
+            color: #aaaaaa;
+            margin-top: 10px;
+            padding: 8px 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+            }
+
+            .icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .button {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            footer {
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="logo.png" alt="Icon" class="icon">
+        <button class="button" id="backup">Fazer Backup</button>
+        <button class="button" id="restore">Restaurar Backup</button>
+        <button class="button" id="save">Save (100%)</button>
+        <button class="button" id="clean-data">Limpar Dados</button>
+    </div>
+    <footer>
+        Criado para gerenciar e salvar seu progresso no Subway Surfers.
+    </footer>
+    <script src="popup.js"></script>
+</body>
+
+</html>

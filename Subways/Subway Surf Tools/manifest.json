@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Subway Surf Tools",
+    "version": "1.0",
+    "description": "backup e restauração do progresso no subway surfers",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "downloads"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon.png",
+            "48": "icon.png",
+            "516": "icon.png"
+        }
+    }
+}
