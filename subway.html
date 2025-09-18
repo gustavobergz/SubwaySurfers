@@ -246,5 +246,133 @@
             updatePlayButton('dropdownMenuButton2', 'playButton2');
         });
     </script>
+    <script>
+/* ===== Config ===== */
+const DB_NAME   = "/idbfs";       // Mesmo nome do IndexedDB usado pelo jogo
+const STORE     = "FILE_DATA";    // ObjectStore
+// Se souber a chave exata, defina aqui; senão deixamos null para auto-descobrir
+let   SAVE_KEY  = null; // ex.: "/idbfs/5bc32e1a17c4bdfdd5da57ab99ff0a2c/Save/cloud"
+
+/* Opção A: carregar um JSON de backup hospedado no seu site */
+const BACKUP_JSON_URL = "/saves/default.json"; // mude para o caminho real do seu backup
+/* Opção B: se preferir, você pode embutir aqui direto o conteúdo do backup */
+const INLINE_BACKUP_JSON = null; // ou cole aqui um objeto { payload: { timestamp, mode, contents_b64 } }
+
+/* ===== Utils ===== */
+function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+function base64ToU8(b64){
+  const bin = atob(b64), len = bin.length, out = new Uint8Array(len);
+  for (let i=0;i<len;i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+function legacyParseBinScript(text){
+  const t = /"timestamp":\s*new Date\((\d+)\)|timestamp:\s*new Date\((\d+)\)/.exec(text);
+  const m = /"mode":\s*(\d+)|mode:\s*(\d+)/.exec(text);
+  const c = /new Uint8Array\(\s*\[(.*?)\]\s*\)/s.exec(text);
+  if(!c) throw new Error("Formato legado não reconhecido");
+  const ts = t ? Number(t[1] || t[2]) : Date.now();
+  const md = m ? Number(m[1] || m[2]) : 0;
+  const arr = c[1].trim() ? c[1].split(",").map(s=>Number(s.trim())) : [];
+  return { timestamp: ts, mode: md, contents: new Uint8Array(arr) };
+}
+
+/* Abre DB e Store com retry (o WebGL/IDBFS às vezes inicializa depois) */
+async function openStoreWithRetry(maxAttempts=20, delay=500){
+  for(let i=0;i<maxAttempts;i++){
+    try{
+      const db = await new Promise((resolve, reject)=>{
+        const req = indexedDB.open(DB_NAME);
+        req.onerror = e => reject(e);
+        req.onsuccess = e => resolve(e.target.result);
+      });
+      const tx = db.transaction([STORE], "readwrite");
+      return { db, store: tx.objectStore(STORE) };
+    }catch(e){
+      await sleep(delay);
+    }
+  }
+  throw new Error("Não foi possível abrir IndexedDB/STORE (timeout).");
+}
+
+/* Descobre a chave do save se SAVE_KEY estiver nulo */
+async function discoverSaveKey(store){
+  return new Promise((resolve,reject)=>{
+    const keys = [];
+    const cursorReq = store.openCursor();
+    cursorReq.onsuccess = e => {
+      const cursor = e.target.result;
+      if(cursor){
+        keys.push(cursor.primaryKey);
+        cursor.continue();
+      }else{
+        // procura algo que termine com /Save/cloud
+        const match = keys.find(k => typeof k === "string" && k.endsWith("/Save/cloud"));
+        if(!match) reject(new Error("Chave /Save/cloud não encontrada no store."));
+        else resolve(match);
+      }
+    };
+    cursorReq.onerror = reject;
+  });
+}
+
+/* Grava o objeto {timestamp, mode, contents: Uint8Array} na chave SAVE_KEY */
+async function writeSave(obj){
+  const { store } = await openStoreWithRetry();
+  if(!SAVE_KEY) SAVE_KEY = await discoverSaveKey(store);
+  const toPut = {
+    timestamp: new Date(Number(obj.timestamp || Date.now())),
+    mode: Number(obj.mode || 0),
+    contents: (obj.contents instanceof Uint8Array) ? obj.contents : new Uint8Array(obj.contents || [])
+  };
+  await new Promise((resolve, reject)=>{
+    const req = store.put(toPut, SAVE_KEY);
+    req.onsuccess = () => resolve();
+    req.onerror   = e => reject(e);
+  });
+}
+
+/* Carrega backup do servidor (JSON novo) OU tenta interpretar .bin legado se for texto legado */
+async function loadBackup(){
+  if(INLINE_BACKUP_JSON){
+    const p = INLINE_BACKUP_JSON.payload;
+    return { timestamp: p.timestamp, mode: p.mode, contents: base64ToU8(p.contents_b64) };
+  }
+  if(!BACKUP_JSON_URL) throw new Error("Sem fonte de backup definida.");
+  const resp = await fetch(BACKUP_JSON_URL, { cache: "no-store" });
+  const text = await resp.text();
+  try{
+    const j = JSON.parse(text);
+    const p = j.payload;
+    return { timestamp: p.timestamp, mode: p.mode, contents: base64ToU8(p.contents_b64) };
+  }catch(_){
+    // não era JSON -> tenta formato legado (.bin em script)
+    return legacyParseBinScript(text);
+  }
+}
+
+/* Espera o jogo inicializar (ponto seguro para gravar). 
+   Se você tiver acesso ao Module (Unity/Emscripten), prefira onRuntimeInitialized/postRun. */
+async function waitGameReady(){
+  // Estratégia simples: aguarda o onload e mais alguns segundos.
+  // Se tiver evento próprio do jogo, substitua aqui.
+  await new Promise(res => window.requestAnimationFrame(()=>res()));
+  await sleep(1500);
+}
+
+/* Fluxo principal: roda sozinho quando a página abre */
+(async function autoInjectSave(){
+  try{
+    await waitGameReady();
+    const save = await loadBackup();
+    await writeSave(save);
+    console.log("[Subway] Save aplicado com sucesso.");
+    // Opcional: recarregar o jogo para ele reler o filesystem
+    // location.reload();
+  }catch(e){
+    console.error("[Subway] Falha ao aplicar save:", e);
+  }
+})();
+</script>
+
 </body>
 </html>
