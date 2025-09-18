@@ -49,18 +49,40 @@
             background-color: #ff0000; /* Cor de fundo do botão dropdown */
             border-color: #420b0b; /* Cor da borda do botão dropdown */
         }
-        .btn-secondary:hover {
+        .btn-secondary:hover,
+        .btn-secondary:focus {
             background-color: #ff0000; /* Cor de fundo ao passar o mouse sobre o botão dropdown */
             border-color: #ff0000; /* Cor da borda ao passar o mouse sobre o botão dropdown */
+        }
+        .btn-play {
+            background-color: #ff0000; /* Cor de fundo do botão de jogar */
+            border-color: #420b0b; /* Cor da borda do botão de jogar */
+            color: #ffffff;
+        }
+        .btn-play:hover,
+        .btn-play:focus {
+            background-color: #ff1a1a; /* Cor ao passar o mouse sobre o botão de jogar */
+            border-color: #ff1a1a;
+            color: #ffffff;
+        }
+        .btn-play.disabled,
+        .btn-play:disabled {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #ffffff;
+            pointer-events: none;
         }
         .dropdown-menu {
             background-color: #343a40; /* Cor de fundo do menu dropdown */
         }
         .dropdown-item {
             color: #ffffff; /* Cor do texto dos itens do dropdown */
+            cursor: pointer;
         }
-        .dropdown-item:hover {
+        .dropdown-item:hover,
+        .dropdown-item:focus {
             background-color: #ff0000; /* Cor de fundo ao passar o mouse sobre os itens do dropdown */
+            color: #ffffff;
         }
     </style>
 </head>
@@ -76,7 +98,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
         <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="mb-0 text-primary text-uppercase"></i>Blindado</h1>
+            <h1 class="mb-0 text-primary text-uppercase">Blindado</h1>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -115,25 +137,9 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Selecione o Mapa
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="Subways/Barcelona/barcelona.html">Barcelona</a></li>
-                                <li><a class="dropdown-item" href="Subways/Beijing/beijing.html">Beijing</a></li>
-                                <li><a class="dropdown-item" href="Subways/Berlin/berlin.html">Berlin</a></li>
-                                <li><a class="dropdown-item" href="Subways/Buenos Aires/buenos-aires.html">Buenos Aires</a></li>
-                                <li><a class="dropdown-item" href="Subways/Havana/havana.html">Havana</a></li>
-                                <li><a class="dropdown-item" href="Subways/Houston/houston.html">Houston</a></li>
-                                <li><a class="dropdown-item" href="Subways/Iceland/iceland.html">Iceland</a></li>
-                                <li><a class="dropdown-item" href="Subways/London/london.html">London</a></li>
-                                <li><a class="dropdown-item" href="Subways/Mexico/mexico.html">Mexico</a></li>
-                                <li><a class="dropdown-item" href="Subways/Miami/miami.html">Miami</a></li>
-                                <li><a class="dropdown-item" href="Subways/Monaco/">Monaco</a></li>
-                                <li><a class="dropdown-item" href="Subways/New Orleans/neworleans.html">New Orleans</a></li>
-                                <li><a class="dropdown-item" href="Subways/San Francisco/SanFrancisco.html">San Francisco</a></li>
-                                <li><a class="dropdown-item" href="Subways/Winter Holiday/winterholiday.html">Winter Holiday</a></li>
-                                <li><a class="dropdown-item" href="Subways/Zurich/zurich.html">Zurich</a></li>
-                            </ul>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"></ul>
                         </div>
-                        <a href="#" id="playButton1" class="btn">Jogar</a>
+                        <a href="#" id="playButton1" class="btn btn-play disabled" role="button" aria-disabled="true" tabindex="-1">Jogar</a>
                     </div>
                 </div>
             </div>
@@ -146,29 +152,8 @@
                     </div>
                     <div class="card-body text-center">
                         <h5 class="card-title">Subway Surfers PREMIUM</h5>
-                        <div class="dropdown mb-3">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Selecione o Mapa
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item" href="mapa1.html">Mapa 1</a></li>
-                                <li><a class="dropdown-item" href="mapa2.html">Mapa 2</a></li>
-                                <li><a class="dropdown-item" href="mapa3.html">Mapa 3</a></li>
-                                <li><a class="dropdown-item" href="mapa4.html">Mapa 4</a></li>
-                                <li><a class="dropdown-item" href="mapa5.html">Mapa 5</a></li>
-                                <li><a class="dropdown-item" href="mapa6.html">Mapa 6</a></li>
-                                <li><a class="dropdown-item" href="mapa7.html">Mapa 7</a></li>
-                                <li><a class="dropdown-item" href="mapa8.html">Mapa 8</a></li>
-                                <li><a class="dropdown-item" href="mapa9.html">Mapa 9</a></li>
-                                <li><a class="dropdown-item" href="mapa10.html">Mapa 10</a></li>
-                                <li><a class="dropdown-item" href="mapa11.html">Mapa 11</a></li>
-                                <li><a class="dropdown-item" href="mapa12.html">Mapa 12</a></li>
-                                <li><a class="dropdown-item" href="mapa13.html">Mapa 13</a></li>
-                                <li><a class="dropdown-item" href="mapa14.html">Mapa 14</a></li>
-                                <li><a class="dropdown-item" href="mapa15.html">Mapa 15</a></li>
-                            </ul>
-                        </div>
-                        <a href="#" id="playButton2" class="btn">Jogar</a>
+                        <p class="mb-3">Mapas premium disponíveis em breve.</p>
+                        <a href="#" class="btn btn-play disabled" role="button" aria-disabled="true" tabindex="-1">Em breve</a>
                     </div>
                 </div>
             </div>
@@ -218,32 +203,69 @@
     <!-- Custom Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Função para atualizar o botão "Jogar" e o texto do botão de seleção com a URL e o nome do mapa selecionado
-            function updatePlayButton(dropdownId, buttonId) {
+            // Lista de mapas disponíveis e lógica para atualizar o botão "Jogar" com o destino correto
+            const maps = [
+                { name: 'Barcelona', url: 'Subways/Barcelona/barcelona.html' },
+                { name: 'Beijing', url: 'Subways/Beijing/beijing.html' },
+                { name: 'Berlin', url: 'Subways/Berlin/berlin.html' },
+                { name: 'Buenos Aires', url: 'Subways/Buenos%20Aires/buenos-aires.html' },
+                { name: 'Havana', url: 'Subways/Havana/havana.html' },
+                { name: 'Houston', url: 'Subways/Houston/houston.html' },
+                { name: 'Iceland', url: 'Subways/Iceland/iceland.html' },
+                { name: 'London', url: 'Subways/London/london.html' },
+                { name: 'Mexico', url: 'Subways/Mexico/mexico.html' },
+                { name: 'Miami', url: 'Subways/Miami/miami.html' },
+                { name: 'Monaco', url: 'Subways/Monaco/monaco.html' },
+                { name: 'New Orleans', url: 'Subways/New%20Orleans/neworleans.html' },
+                { name: 'San Francisco', url: 'Subways/San%20Francisco/SanFrancisco.html' },
+                { name: 'Winter Holiday', url: 'Subways/Winter%20Holiday/winterholiday.html' },
+                { name: 'Zurich', url: 'Subways/Zurich/zurich.html' }
+            ];
+
+            function setSelectedMap(map, dropdownButton, playButton) {
+                dropdownButton.textContent = map.name;
+                playButton.setAttribute('href', map.url);
+                playButton.setAttribute('target', '_blank');
+                playButton.setAttribute('rel', 'noopener noreferrer');
+                playButton.classList.remove('disabled');
+                playButton.removeAttribute('aria-disabled');
+                playButton.removeAttribute('tabindex');
+            }
+
+            function populateDropdown(dropdownId, playButtonId, mapOptions) {
                 const dropdownButton = document.getElementById(dropdownId);
-                const playButton = document.getElementById(buttonId);
+                const playButton = document.getElementById(playButtonId);
+                const dropdownMenu = document.querySelector(`#${dropdownId} ~ .dropdown-menu`);
 
-                // Adiciona o evento de clique aos itens do menu dropdown
-                document.querySelectorAll(`#${dropdownId} ~ .dropdown-menu .dropdown-item`).forEach(item => {
-                    item.addEventListener('click', function(event) {
-                        event.preventDefault(); // Impede o comportamento padrão do link
+                if (!dropdownButton || !playButton || !dropdownMenu) {
+                    return;
+                }
 
-                        const url = this.getAttribute('href');
-                        const mapName = this.textContent;
+                dropdownMenu.innerHTML = '';
 
-                        // Atualiza o botão de dropdown para mostrar o mapa selecionado
-                        dropdownButton.textContent = mapName;
-                        
-                        // Atualiza o botão "Jogar" para a URL do mapa selecionado
-                        playButton.setAttribute('href', url);
-                        playButton.setAttribute('target', '_blank'); // Garante que o link seja aberto em uma nova aba
+                mapOptions.forEach((map, index) => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+
+                    link.className = 'dropdown-item';
+                    link.setAttribute('href', map.url);
+                    link.textContent = map.name;
+
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        setSelectedMap(map, dropdownButton, playButton);
                     });
+
+                    listItem.appendChild(link);
+                    dropdownMenu.appendChild(listItem);
+
+                    if (index === 0) {
+                        setSelectedMap(map, dropdownButton, playButton);
+                    }
                 });
             }
 
-            // Atualiza o botão "Jogar" e o texto do botão de seleção com a URL e o nome do mapa selecionado
-            updatePlayButton('dropdownMenuButton1', 'playButton1');
-            updatePlayButton('dropdownMenuButton2', 'playButton2');
+            populateDropdown('dropdownMenuButton1', 'playButton1', maps);
         });
     </script>
 </body>
