@@ -352,6 +352,7 @@ Ym9va0xvZ2luAAADaGFzTG9nZ2VkRmx1cnJ5RGFpbHlFdmVudFNvY2lhbAAFAAAAAAA=
         if (sameTimestamp && sameMode && sameContents) {
           console.info("Save atual já corresponde ao backup. Nenhuma alteração necessária.");
           return false;
+          return;
         }
       }
 
@@ -387,6 +388,8 @@ Ym9va0xvZ2luAAADaGFzTG9nZ2VkRmx1cnJ5RGFpbHlFdmVudFNvY2lhbAAFAAAAAAA=
       }
     } catch (err) {
       // sessionStorage pode estar indisponível em alguns contextos; ignore nessas situações.
+    } finally {
+      db.close();
     }
   }
 
@@ -411,6 +414,11 @@ Ym9va0xvZ2luAAADaGFzTG9nZ2VkRmx1cnJ5RGFpbHlFdmVudFNvY2lhbAAFAAAAAAA=
       if (hadPendingReload) {
         setReloadFlag(null);
       }
+    try {
+      const payload = await loadSavePayload();
+      await applySave(payload);
+    } catch (err) {
+      console.error("Erro ao aplicar save:", err);
     }
   })();
 })();
