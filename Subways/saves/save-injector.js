@@ -351,18 +351,69 @@ Ym9va0xvZ2luAAADaGFzTG9nZ2VkRmx1cnJ5RGFpbHlFdmVudFNvY2lhbAAFAAAAAAA=
         }
         if (sameTimestamp && sameMode && sameContents) {
           console.info("Save atual já corresponde ao backup. Nenhuma alteração necessária.");
+          return false;
           return;
         }
       }
 
       await writeSave(db, record);
       console.log("Save aplicado com sucesso!");
+      return true;
+    } finally {
+      try {
+        db.close();
+      } catch (err) {
+        // Alguns navegadores mais antigos podem não suportar fechar explicitamente.
+      }
+    }
+    return false;
+  }
+
+  const RELOAD_FLAG_KEY = "__subway_save_injector_reload__";
+
+  function readReloadFlag() {
+    try {
+      return sessionStorage.getItem(RELOAD_FLAG_KEY);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function setReloadFlag(value) {
+    try {
+      if (value == null) {
+        sessionStorage.removeItem(RELOAD_FLAG_KEY);
+      } else {
+        sessionStorage.setItem(RELOAD_FLAG_KEY, value);
+      }
+    } catch (err) {
+      // sessionStorage pode estar indisponível em alguns contextos; ignore nessas situações.
     } finally {
       db.close();
     }
   }
 
   (async function run() {
+    const hadPendingReload = readReloadFlag() === "pending";
+    try {
+      const payload = await loadSavePayload();
+      const applied = await applySave(payload);
+      if (applied) {
+        if (hadPendingReload) {
+          setReloadFlag(null);
+        } else {
+          setReloadFlag("pending");
+          window.location.reload();
+          return;
+        }
+      } else if (hadPendingReload) {
+        setReloadFlag(null);
+      }
+    } catch (err) {
+      console.error("Erro ao aplicar save:", err);
+      if (hadPendingReload) {
+        setReloadFlag(null);
+      }
     try {
       const payload = await loadSavePayload();
       await applySave(payload);
